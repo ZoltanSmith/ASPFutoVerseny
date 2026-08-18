@@ -4,11 +4,11 @@ using System.Diagnostics;
 
 namespace ASPFutoVerseny.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController(FutoDbContext db) : Controller
     {
         public IActionResult Index()
         {
-            return View();
+            return View(db.Versenyzok.ToList());
         }
 
         public IActionResult Privacy()

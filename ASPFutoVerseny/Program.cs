@@ -1,4 +1,11 @@
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Add MySQL Database Connection
+var connectionString = $"{builder.Configuration.GetConnectionString("SqlConnection")};password={builder.Configuration["Test"]}";
+builder.Services.AddDbContext<ASPFutoVerseny.Models.FutoDbContext>(options =>
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
