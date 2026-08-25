@@ -1,6 +1,30 @@
-﻿@model List<Versenyzo>
+﻿@using ASPFutoVerseny.Controllers
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<HomeController> Localizer
+@model List<Versenyzo>
 @{
-    ViewData["Title"] = "Versenyzők";
+    ViewData["Title"] = Localizer["Runners"];
+}
+
+@{
+    string info = (string)TempData["info"];
+    string error = (string)TempData["error"];
+}
+
+@if (!string.IsNullOrEmpty(info))
+{
+    <div class="alert alert-dismissible fade show alert-success" role="alert">
+        @info
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(error))
+{
+    <div class="alert alert-dismissible fade show alert-danger" role="alert">
+        error
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
 }
 
 <h1>@ViewData["Title"]</h1>

@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace ASPFutoVerseny.Models;
 
 public partial class Versenyzo
 {
+    [ScaffoldColumn(false)]
     [Key]
     public uint Id { get; set; }
 
@@ -27,8 +27,9 @@ public partial class Versenyzo
     public float Tav { get; set; }
 
     [Required]
+    [DisplayName("Kvalifikációs idő:")]
     public TimeOnly KvalifikaciosIdo { get; set; }
 
     [Required]
-    public bool? Profi { get; set; }
+    public bool Profi { get; set; }
 }

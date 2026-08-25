@@ -1,4 +1,7 @@
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
+using System.Text.RegularExpressions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +13,23 @@ builder.Services.AddDbContext<ASPFutoVerseny.Models.FutoDbContext>(options =>
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// localize
+builder.Services.AddLocalization(o =>
+{
+    o.ResourcesPath = "Resources";
+});
+
+builder.Services.Configure<RequestLocalizationOptions>(o =>
+{
+    //o.SetDefaultCulture("hu");
+    string[] langs = ["hu", "en"];
+    o.AddSupportedCultures(langs);
+    o.AddSupportedUICultures(langs);
+});
+
 var app = builder.Build();
+
+app.UseRequestLocalization();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

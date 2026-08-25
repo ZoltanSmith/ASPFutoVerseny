@@ -1,0 +1,36 @@
+﻿@model ASPFutoVerseny.Models.Versenyzo
+
+@{
+    ViewData["Title"] = "Új versenyző";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form id="versenyzo_form" asp-action="Uj" method="post" class="needs-validation" novalidate>
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    @* Generate editors for all model properties *@
+    @Html.EditorForModel()
+
+    <div class="form-group mt-3">
+        <button type="submit" class="btn btn-primary">Mentés</button>
+        <a asp-action="Index" class="btn btn-secondary">Mégsem</a>
+    </div>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
+
+
+<script>
+    let cb = document.getElementById("Profi");
+    let form = $("#versenyzo_form")[0];
+    form.addEventListener("submit", function(event){
+        if (!cb.checked){
+            alert("checkbox pipálása kötelező!");
+            event.preventDefault();
+        }
+    });
+</script>
