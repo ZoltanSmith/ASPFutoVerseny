@@ -21,10 +21,10 @@ builder.Services.AddLocalization(o =>
 
 builder.Services.Configure<RequestLocalizationOptions>(o =>
 {
-    //o.SetDefaultCulture("hu");
-    string[] langs = ["hu", "en"];
+    string[] langs = ["en", "hu"];
     o.AddSupportedCultures(langs);
     o.AddSupportedUICultures(langs);
+    o.SetDefaultCulture("en");
 });
 
 var app = builder.Build();
