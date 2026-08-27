@@ -22,7 +22,7 @@
 @if (!string.IsNullOrEmpty(error))
 {
     <div class="alert alert-dismissible fade show alert-danger" role="alert">
-        error
+        @error
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
 }
@@ -50,3 +50,30 @@ else
     </ul>
 }
 
+<canvas id="diagram" />
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    @{
+        var adatok = Model?.GroupBy(v => v.Tav).Select(cs => new { Tav = cs.Key, Szamlalo = cs.Count() });
+    }
+    let context = document.getElementById("diagram");
+    let ertekek = [@(String.Join(',', adatok.Select(a => a.Szamlalo)))];
+    let felosztas = [@(String.Join(',', adatok.Select(a => a.Tav)))];
+
+    new Chart(context, {
+        type: 'bar',
+        data: {
+            labels: felosztas,
+            datasets: [
+                {
+                    label: 'Versenyzők száma táv szerint',
+                    data: ertekek,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }
+            ]
+        }
+    });
+</script>

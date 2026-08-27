@@ -10,7 +10,7 @@ public partial class Versenyzo
     public uint Id { get; set; }
 
     [Required]
-    [StringLength(100, MinimumLength = 6)]
+    [StringLength(100, MinimumLength = 6, ErrorMessage = "nev_validacio")]
     public string Nev { get; set; } = null!;
 
     [MaxLength(45)]

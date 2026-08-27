@@ -1,0 +1,20 @@
+﻿@using System.Globalization
+@inject CultureInfo[] supportedCultures
+@{
+}
+
+<div class="nyelv-valaszto">
+    <form method="post" asp-controller="Nyelv" asp-action="Valaszt">
+        <select name="valasztottNyelv" onchange="this.form.submit()">
+            @foreach (var l in supportedCultures)
+            {
+                var selected = l.TwoLetterISOLanguageName == CultureInfo.CurrentCulture.Name;
+                <option value="@l.TwoLetterISOLanguageName" selected=@(selected)>
+                   @l.NativeName
+                </option>
+            }
+        </select>
+        <input type="hidden" name="visszaTeres" value="@Context.Request.Path" />
+    </form>
+</div>
+

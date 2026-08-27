@@ -10,22 +10,28 @@ var connectionString = $"{builder.Configuration.GetConnectionString("SqlConnecti
 builder.Services.AddDbContext<ASPFutoVerseny.Models.FutoDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-
 // localize
 builder.Services.AddLocalization(o =>
 {
     o.ResourcesPath = "Resources";
 });
 
+// DataAnnotation fordítás engedélyezése:
+builder.Services.AddMvc().AddDataAnnotationsLocalization();
+
+CultureInfo[] supportedCultures = [
+    new("en"),
+    new("hu"),
+    new("de")
+];
 builder.Services.Configure<RequestLocalizationOptions>(o =>
 {
-    string[] langs = ["en", "hu"];
-    o.AddSupportedCultures(langs);
-    o.AddSupportedUICultures(langs);
+    o.SupportedCultures = supportedCultures;
+    o.SupportedUICultures = supportedCultures;
     o.SetDefaultCulture("en");
 });
+
+builder.Services.AddSingleton(supportedCultures);
 
 var app = builder.Build();
 
