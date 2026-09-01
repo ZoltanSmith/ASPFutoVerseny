@@ -62,11 +62,43 @@ else
     let felosztas = [@(String.Join(',', adatok.Select(a => a.Tav)))];
 
     new Chart(context, {
-        type: 'bar',
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: "diagram",
+                }
+            },
+            scales: {
+                y: {
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            },
+            tooltip: {
+                mode: 'index',
+                bodyColor: "ff0000",
+                callbacks: {
+                    label: function(context) {
+                        return '@Localizer["Runners"]: ' + context.raw;
+                    }
+                }
+            }
+        },
         data: {
             labels: felosztas,
             datasets: [
                 {
+                    type: 'bar',
+                    label: 'Versenyzők száma táv szerint',
+                    data: ertekek,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                },
+                {
+                    type: 'line',
                     label: 'Versenyzők száma táv szerint',
                     data: ertekek,
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
